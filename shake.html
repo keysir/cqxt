@@ -70,7 +70,7 @@
     </style>
 <!-- <script type="text/javascript" src="js/shake.js"></script> -->
 </head>
-<body>
+<body onclick="doResult()">
 <audio id="runingmic" class="hide" loop><source src=".\music\5018.mp3"></audio>
 <audio id="endmic" class="hide"><source src=".\music\4092.mp3"></audio>
 
@@ -145,6 +145,7 @@ window.onload = function() {
     } else {
         alert('本设备不支持devicemotion事件');
     }
+    var fog=true;
 
     function deviceMotionHandler(eventData) {
         var acceleration = eventData.accelerationIncludingGravity;
@@ -160,7 +161,9 @@ window.onload = function() {
             var status = document.getElementById("status");
 
             if (speed > SHAKE_THRESHOLD) {
-                doResult();
+                if(fog){
+                    doResult();
+                }
             }
             last_x = x;
             last_y = y;
@@ -169,6 +172,7 @@ window.onload = function() {
     }
 
     function doResult() {
+        fog=false;
         document.getElementById("result").className = "result";
         document.getElementById("loading").className = "loading loading-show";
 
@@ -196,7 +200,10 @@ window.onload = function() {
             zjmic.volume=1;
             zjmic.currentTime = 0;
             zjmic.play();
-
+            
+             setTimeout(function(){
+                fog=true;
+             },1000)
         }, 1000);
     }
     </script>
