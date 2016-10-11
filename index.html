@@ -1,13 +1,23 @@
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=11;IE=10;IE=9; IE=8; IE=7; IE=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<title>抽签程序</title>
-	<link href="./css/style.css" type="text/css" rel="stylesheet" media="screen, projection">
-	<link href="./css/style1.css" type="text/css" rel="stylesheet" media="screen, projection">
 	<link href="./css/ui-dialog.css" type="text/css" rel="stylesheet" media="screen, projection">
+    <link href="./css/style.css" type="text/css" rel="stylesheet" media="screen, projection">
+    <link href="./css/style1.css" type="text/css" rel="stylesheet" media="screen, projection">
 </head>
 
-<body scroll="no">
+<body >
 <div class="readme hide">
     <p>▪ 按键盘空格键或者字母A可进行抽取,隐藏菜单请按ESC。</p>
     <p>▪ ESC菜单中高级设置可以设置参与人数，格子大小，重置抽签数据等信息。</p>
@@ -37,11 +47,11 @@
     <p class="line"><label><input type="checkbox" id="reset" value="1" autocomplete="off"/>重置已产生的抽奖数据</label></p>
 </div>
 <div class="top">抽签程序</div>
-<div class="help" style="text-align:center; color:#FFF;">
+<div class="help" >
 		按键盘空格键或者字母A可进行抽取,查看帮助请按F1,隐藏请按ESC。
         <a href="javascript:;" class="config">高级设定</a>
 	</div>
-<div class="items" style="margen:0 auto;"></div>
+<div class="items" ></div>
 
 <div class="menu hide">
     <div class="ss"> 
@@ -50,7 +60,7 @@
 </div>
 
 <div class="datavalue hide">
-    <textarea id="datavalue" readonly="readonly">1:'杨盼盼',2:'王遂臣',3:'王靖雯',4:'潘冲',5:'马科',6:'杨逸凡',7:'雷明修',8:'于璇',9:'冯欣',10:'宋祎',11:'陈硕',12:'赵晴',13:'裴家茂',14:'常佳丽',15:'吕旭东',16:'袁会荣',17:'曹永怡',18:'黄晨潭',19:'闫守基',20:'范永平',21:'孙培培',22:'田军震',23:'赵倩',24:'张俊杰',25:'卢轶',26:'胡书钱',27:'江静歌',28:'刘洁婷',29:'郭萌展',30:'蒙奥尧',31:'熊子颐',32:'张鵾鹏',33:'李冰瑶',34:'党冲',35:'修俊朝',36:'白如淯',37:'刘苏瑶',38:'张强',39:'李红瑶',40:'吴玉芝',41:'乔统军',42:'刘明媛',43:'张亚东',44:'李明卉',45:'毕峥泽',46:'孟昱含',47:'刘李恒',48:'周宝柱',49:'赵薇',50:'程风霞',51:'邢恒',52:'彭蕊',53:'袁慧娴',54:'王腾达',55:'程爽',56:'郭凯帆',57:'马庆',58:'袁梦月',59:'王佳雷',60:'刘爽',61:'刘杰',62:'袁天顺',63:'朱家宝',64:'郑晓涵',65:'程卓',66:'张建龙',67:'杨静',68:'焦展鹏',69:'张宇鑫',70:'吴若晗',71:'徐志杰',72:'赵蕾',73:'梁品',74:'卢梦月',75:'熊红浩',76:'张聪聪',77:'王妍',78:'王冰',79:'宋哲',80:'刘欣',81:'刘珂',82:'刘涛',83:'张李园'
+    <textarea id="datavalue" readonly="readonly">1:'杨盼盼',2:'王遂臣',3:'王靖雯',4:'潘冲',5:'马科',6:'杨逸凡',7:'雷明修',8:'于璇',9:'冯欣',10:'宋祎',11:'陈硕',12:'赵晴',13:'裴家茂',14:'常佳丽',15:'吕旭东',16:'袁会荣',17:'曹永怡',18:'黄晨潭',19:'闫守基',20:'范永平',21:'孙培培',22:'田军震',23:'赵倩',24:'张俊杰',25:'卢轶',26:'胡书钱',27:'江静歌',28:'刘洁婷',29:'郭萌展',30:'蒙奥尧',31:'熊子颐',32:'张鵾鹏',33:'李冰瑶',34:'党冲',35:'修俊朝',36:'白如淯',37:'刘苏瑶',38:'张强',39:'李红瑶',40:'吴玉芝',41:'乔统军',42:'刘明媛',43:'张亚东',44:'李明卉',45:'毕峥泽',46:'孟昱含',47:'刘李恒',48:'周宝柱',49:'赵薇',50:'程风霞',51:'邢恒',52:'彭蕊',53:'袁慧娴',54:'王腾达',55:'程爽',56:'郭凯帆',57:'马庆',58:'袁梦月',59:'王佳雷',60:'刘爽',61:'刘杰',62:'袁天顺',63:'朱家宝',64:'郑晓涵',65:'程卓',66:'张建龙',67:'杨静',68:'焦展鹏',69:'张宇鑫',70:'吴若晗',71:'徐志杰',72:'赵蕾',73:'梁品',74:'卢梦月',75:'熊红浩',76:'张聪聪',77:'王妍',78:'王冰',79:'宋哲',80:'刘欣',81:'刘珂',82:'刘涛',83:'张李园',84:'赵洋'
     </textarea>
 </div>
 
@@ -61,6 +71,6 @@
 <script type="text/javascript" src="./js/jquery.js"></script>
 <script type="text/javascript" src="./js/jquery.pulsate.min.js"></script>
 <script type="text/javascript" src="./js/dialog-plus-min.js"></script>
-<script type="text/javascript" src="./js/app.js"></script>
+<script type="text/javascript" src="./js/app.js?v=1"></script>
 </body>
 </html>

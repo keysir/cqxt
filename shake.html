@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>摇啊摇啊摇</title>
+ <style>
+    * { margin: 0; padding: 0; }
+    body { background: #292D2E; }
+    .hand { width: 190px; height: 300px; background: url(images/hand.png) no-repeat; position: absolute; top: 50px; left: 50%; margin-left: -95px; }
+    .hand-animate { -webkit-animation: hand_move infinite 2s; }
+    .result { background: #393B3C; border: #2C2C2C 1px solid; box-shadow: inset #4D4F50 0 0 0 1px; border-radius: 10px; color: #fff; padding: 10px; width: 300px; position: absolute; top: 300px; left: 50%; margin-left: -161px; opacity: 0;
+        -webkit-transition: all 1s;
+           -moz-transition: all 1s;
+            -ms-transition: all 1s;
+             -o-transition: all 1s;
+                transition: all 1s; }
+    .result .pic { width: 50px; height: 50px; float: left; background: #fff; }
+    .result .con { overflow: hidden; zoom: 1; padding-left: 10px; line-height: 24px; }
+    .result-show { opacity: 1; margin-top: 50px; }
+    .loading { position: absolute; top: 240px; left: 50%; margin-left: -50px; width: 100px; height: 100px; background: url(images/spinner.png) no-repeat; background-size: 100px 100px; opacity: 0;
+        -webkit-animation: loading infinite linear .5s;
+           -moz-animation: loading infinite linear .5s;
+            -ms-animation: loading infinite linear .5s;
+             -o-animation: loading infinite linear .5s;
+                animation: loading infinite linear .5s;
+        -webkit-transition: all .5s;
+           -moz-transition: all .5s;
+            -ms-transition: all .5s;
+             -o-transition: all .5s;
+                transition: all .5s; }
+    .loading-show { opacity: 1; }
+    
+    @-webkit-keyframes hand_move {
+        0% {
+            -webkit-transform: rotate(0);
+               -moz-transform: rotate(0);
+                -ms-transform: rotate(0);
+                 -o-transform: rotate(0);
+                    transform: rotate(0); }
+        50% {
+            -webkit-transform: rotate(15deg);
+               -moz-transform: rotate(15deg);
+                -ms-transform: rotate(15deg);
+                 -o-transform: rotate(15deg);
+                    transform: rotate(15deg); }
+        100% {
+            -webkit-transform: rotate(0);
+               -moz-transform: rotate(0);
+                -ms-transform: rotate(0);
+                 -o-transform: rotate(0);
+                    transform: rotate(0); }
+    }
+    @-webkit-keyframes loading {
+        0% {
+            -webkit-transform: rotate(0);
+               -moz-transform: rotate(0);
+                -ms-transform: rotate(0);
+                 -o-transform: rotate(0);
+                    transform: rotate(0); }
+        100% {
+            -webkit-transform: rotate(360deg);
+               -moz-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                 -o-transform: rotate(360deg);
+                    transform: rotate(360deg); }
+    }
+    </style>
+<script type="text/javascript" src="js/shake.js"></script>
+</head>
+<body>
+
+
+<div id="hand" class="hand hand-animate"></div>
+<div id="loading" class="loading"></div>
+<div id="result" class="result">
+<div class="pic"></div>
+<div class="con">摇晃结果<br/>摇晃结果的其他信息哈哈哈</div>
+</div>
+
+<script type="text/javascript">
+window.onload = function() {
+
+    //create a new instance of shake.js.
+    var myShakeEvent = new Shake({
+        threshold: 15
+    });
+
+    // start listening to device motion
+    myShakeEvent.start();
+
+    // register a shake event
+    window.addEventListener('shake', shakeEventDidOccur, false);
+
+    //shake event callback
+    function shakeEventDidOccur () {
+
+        //put your own code here etc.
+        var con = document.getElementById("con"); 
+     
+        var arr = ['1','2','3','4','5','6','7','8','9','10']; 
+        var num = Math.floor(Math.random()*10); 
+        con.innerHTML = "恭喜，摇得"+arr[num]+"！"; 
+
+        document.getElementById("result").className = "result";
+        document.getElementById("loading").className = "loading loading-show";
+        setTimeout(function(){
+            //document.getElementById("hand").className = "hand";
+            document.getElementById("result").className = "result result-show";
+            document.getElementById("loading").className = "loading";
+        }, 1000);
+
+    }
+};
+</script>
+</body>
+</html>

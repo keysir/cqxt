@@ -1,8 +1,8 @@
 ﻿var bodyWidth = $("body").css("width");
-$("div.items").css("width",(bodyWidth.substring(0,bodyWidth.length-2)-380)+"px");
+// $("div.items").css("width",(bodyWidth.substring(0,bodyWidth.length-2)-380)+"px");
 
 //参与抽奖人数初始值
-var itemCount= 83;
+var itemCount= 84;
 
 //每次抽人数
 var itemcqCount=10;
@@ -50,8 +50,9 @@ $("document").ready(function(){
     if(localStorage.getItem("title")){
 		$("#title").val(localStorage.getItem("title"));
 	}
-    $(".top").text($("#title").val());
-    
+	if($("#title").val()){
+		$(".top").text($("#title").val());
+	}
     //频率模式本地存储  	 
 	if(localStorage.getItem("ms")){
 		pl = localStorage.getItem("ms");
@@ -192,18 +193,20 @@ $("document").ready(function(){
 			}
 		}
 		
-		e.preventDefault();
+		//e.preventDefault();
 	});
 	
 	//打开高级设置窗口	 
 	$("a.config").click(function(){
 		pause=true;
 		runingmic.pause();
+		
 		var d = dialog({
 			title: '抽签参数设定',
 		    content: $(".model"),
 		    okValue: '确定',
 		    ok: function () {
+		    	
 		    	if($("#reset:checked").val()&&confirm("点击确定将清空抽奖结果。")){
 		    		localStorage.removeItem("sequence");
 		    	}
@@ -224,11 +227,13 @@ $("document").ready(function(){
 		    	localStorage.setItem("pf",$("input[name=pf]:checked").val());
 		    	
 		    	window.location.reload();
+
+
 		    },onclose: function () {
 		        pause=false;
 		    }
-			});
-			d.show();
+			}).show();
+
 		 });
 	
 	//清除错误中奖号
@@ -245,6 +250,7 @@ $("document").ready(function(){
 
 //程序开始入口
 function startApp(){
+
 	//开始播放跑马灯音效
 	runingmic.play();
 	if (dd_dialog) {
@@ -310,13 +316,22 @@ function nextApp(){
 
 var dd_dialog=null;
 function endrun(){
+	pause=true;
 	var it = "";
 	//console.log(it);
-
+	var xi=0;
 	$(".item.active").each(function(){
+		xi++;
          if(it!=""){
+         	if(xi%5==0){
+         		it=it+"&nbsp;&nbsp;"+$(this).text()+"<br>";
+         	}else if(xi%5==1){
+         		it=it+$(this).text();
+         	}else{
+         		it=it+"&nbsp;&nbsp;"+$(this).text();
+         	}
 
-			 it=it+","+$(this).text();
+			 
 		 }else{
 			it=$(this).text();
 		 }
@@ -333,15 +348,25 @@ function endrun(){
 	//中奖号处理
 	// var it=Number(it);
     var r;
-
-     r='<h2><strong> 抽中:&nbsp;</strong>'+it+'！</h2>';
+     r='<div class="cq-title-one">恭喜以下同学被抽中了！</div><br><div class="cq-content">'+it+'</div>';
    
-     dd_dialog = dialog({
-            title: '抽签结果',
-            width:'600px',
+    var  dd_dialog = dialog({
+            // title: '抽签结果',
+     //       width: $(window).width()*0.9+'px',
+		   // height: $(window).height()*0.9+'px',
+	
+		   // padding:0,
+		    fixed: true,
+		    top:350,
             content: r,
-            okValue: '确定'
-        });
+            okValue: '关闭',
+			ok:function(){
+		    },
+		    onclose: function () {
+		        pause=false;
+		    }
+        })
+    // .width($(window).width()*0.9).height($(window).height()*0.9);
     dd_dialog.show();
     isStart=false;
     localStorage.setItem("sequence",$(".ss").html()); 
