@@ -8,7 +8,8 @@
  <style>
     * { margin: 0; padding: 0; }
     body { background: #292D2E; }
-    .hand { width: 190px; height: 300px; background: url(images/hand.png) no-repeat; position: absolute; top: 50px; left: 50%; margin-left: -95px; }
+    .hand { width: 190px; height: 300px; background: url(images/hand.png) no-repeat; position: absolute; top: 50px; left: 50%; 
+        margin-left: -95px; }
     .hand-animate { -webkit-animation: hand_move infinite 2s; }
     .result { background: #393B3C; border: #2C2C2C 1px solid; box-shadow: inset #4D4F50 0 0 0 1px; border-radius: 10px; color: #fff; padding: 10px; width: 300px; position: absolute; top: 300px; left: 50%; margin-left: -161px; opacity: 0;
         -webkit-transition: all 1s;
@@ -16,7 +17,7 @@
             -ms-transition: all 1s;
              -o-transition: all 1s;
                 transition: all 1s; }
-    .result .pic { width: 50px; height: 50px; float: left; background: #fff; line-height: 50px; font-size: 45px;font-weight: bold;text-align: center;}
+    .result .pic { width: 50px; height: 50px; float: left; background: #fff; line-height: 50px; font-size: 45px;font-weight: bold;text-align: center; color: #000;}
     .result .con { overflow: hidden; zoom: 1; padding-left: 10px; line-height: 24px; }
     .result-show { opacity: 1; margin-top: 50px; }
     .loading { position: absolute; top: 240px; left: 50%; margin-left: -50px; width: 100px; height: 100px; background: url(images/spinner.png) no-repeat; background-size: 100px 100px; opacity: 0;
@@ -70,13 +71,25 @@
 <!-- <script type="text/javascript" src="js/shake.js"></script> -->
 </head>
 <body>
+<audio id="runingmic" class="hide" loop><source src=".\music\5018.mp3"></audio>
+<audio id="endmic" class="hide"><source src=".\music\4092.mp3"></audio>
 
+<audio id="1" class="hide"><source src=".\music\1.mp3"></audio>
+<audio id="2" class="hide"><source src=".\music\2.mp3"></audio>
+<audio id="3" class="hide"><source src=".\music\3.mp3"></audio>
+<audio id="4" class="hide"><source src=".\music\4.mp3"></audio>
+<audio id="5" class="hide"><source src=".\music\5.mp3"></audio>
+<audio id="6" class="hide"><source src=".\music\6.mp3"></audio>
+<audio id="7" class="hide"><source src=".\music\7.mp3"></audio>
+<audio id="8" class="hide"><source src=".\music\8.mp3"></audio>
+<audio id="9" class="hide"><source src=".\music\9.mp3"></audio>
+<audio id="10" class="hide"><source src=".\music\10.mp3"></audio>
 
 <div id="hand" class="hand hand-animate"></div>
 <div id="loading" class="loading"></div>
 <div id="result" class="result">
-<div class="pic" id="pic"></div>
-<div class="con" id="con">摇晃结果<br/>摇晃结果的其他信息哈哈哈</div>
+    <div class="pic" id="pic"></div>
+    <div class="con" id="con"></div>
 </div>
 
 <!-- <script type="text/javascript">
@@ -115,6 +128,14 @@ window.onload = function() {
 };
 </script> -->
  <script>
+
+    //摇一摇音效
+    var runingmic=document.getElementById("runingmic");
+    runingmic.volume=1;
+    //中奖音效
+    var endmic=document.getElementById("endmic");
+    endmic.volume=1.0;
+
     var SHAKE_THRESHOLD = 800;
     var last_update = 0;
     var x = y = z = last_x = last_y = last_z = 0;
@@ -150,6 +171,10 @@ window.onload = function() {
     function doResult() {
         document.getElementById("result").className = "result";
         document.getElementById("loading").className = "loading loading-show";
+
+        runingmic.currentTime = 0;
+        runingmic.play();
+
         setTimeout(function(){
             //document.getElementById("hand").className = "hand";
             document.getElementById("result").className = "result result-show";
@@ -158,8 +183,20 @@ window.onload = function() {
             var pic = document.getElementById("pic");
             var arr = ['1','2','3','4','5','6','7','8','9','10']; 
             var num = Math.floor(Math.random()*10); 
-            con.innerHTML = "恭喜，摇得"+arr[num]+"！"; 
+            con.innerHTML = "摇晃结果<br/>恭喜，摇得"+arr[num]+"！"; 
             pic.innerHTML =arr[num];
+
+            runingmic.pause();
+    
+            //播放中奖音效
+            endmic.currentTime = 0;
+            endmic.play();
+
+            var zjmic=document.getElementById(arr[num]);
+            zjmic.volume=1;
+            zjmic.currentTime = 0;
+            zjmic.play();
+
         }, 1000);
     }
     </script>
