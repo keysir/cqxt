@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>摇啊摇啊摇</title>
+<title>摇啊摇啊摇的</title>
  <style>
     * { margin: 0; padding: 0; }
     body { background: #292D2E; }
@@ -145,8 +145,10 @@
     
 
     function doResult() {
+
         var seqarrstr =localStorage.getItem("seqarr");
         var seqarr=eval('(' +seqarrstr+')');
+        alert(seqarrstr);
        // console.log("length"+seqarrstr);
         if(seqarr.length<1){
             alert("小组已经抽完了");
