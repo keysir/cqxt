@@ -176,9 +176,7 @@
 
             
             
-            //处理缓存
-            var jsonstrseqarr = JSON.stringify(seqarr); 
-            localStorage.setItem("seqarr",jsonstrseqarr);
+           
 
             runingmic.pause();
     
@@ -194,6 +192,9 @@
             
             //数组去除指定数字
             seqarr.splice(num,1);
+             //处理缓存
+            var jsonstrseqarr = JSON.stringify(seqarr); 
+            localStorage.setItem("seqarr",jsonstrseqarr);
 
              setTimeout(function(){
                 fog=true;
