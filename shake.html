@@ -67,6 +67,12 @@
                  -o-transform: rotate(360deg);
                     transform: rotate(360deg); }
     }
+    .cz-btn{
+        position: absolute;
+        top:5px;
+        right: 5px;
+        opacity: 0.9;
+    }
     </style>
 <!-- <script type="text/javascript" src="js/shake.js"></script> -->
 </head>
@@ -85,48 +91,14 @@
 <audio id="9" class="hide"><source src=".\music\9.mp3"></audio>
 <audio id="10" class="hide"><source src=".\music\10.mp3"></audio>
 
-<div id="hand" class="hand hand-animate"></div>
+<img src="images/cz.png" class="cz-btn" onclick="reset()">
+<div id="hand" class="hand hand-animate" onclick="doResult()"></div>
 <div id="loading" class="loading"></div>
 <div id="result" class="result">
     <div class="pic" id="pic"></div>
     <div class="con" id="con"></div>
 </div>
 
-<!-- <script type="text/javascript">
-window.onload = function() {
-
-    //create a new instance of shake.js.
-    var myShakeEvent = new Shake({
-        threshold: 15
-    });
-
-    // start listening to device motion
-    myShakeEvent.start();
-
-    // register a shake event
-    window.addEventListener('shake', shakeEventDidOccur, false);
-
-    //shake event callback
-    function shakeEventDidOccur () {
-
-        //put your own code here etc.
-        var con = document.getElementById("con"); 
-     
-        var arr = ['1','2','3','4','5','6','7','8','9','10']; 
-        var num = Math.floor(Math.random()*10); 
-        con.innerHTML = "恭喜，摇得"+arr[num]+"！"; 
-
-        document.getElementById("result").className = "result";
-        document.getElementById("loading").className = "loading loading-show";
-        setTimeout(function(){
-            //document.getElementById("hand").className = "hand";
-            document.getElementById("result").className = "result result-show";
-            document.getElementById("loading").className = "loading";
-        }, 1000);
-
-    }
-};
-</script> -->
  <script>
 
     //摇一摇音效
@@ -170,14 +142,24 @@ window.onload = function() {
             last_z = z;
         }
     }
+    
 
     function doResult() {
+        var seqarrstr =localStorage.getItem("seqarr");
+        var seqarr=eval('(' +seqarrstr+')');
+       // console.log("length"+seqarrstr);
+        if(seqarr.length<1){
+            alert("小组已经抽完了");
+            return;
+        }
         fog=false;
         document.getElementById("result").className = "result";
         document.getElementById("loading").className = "loading loading-show";
 
         runingmic.currentTime = 0;
         runingmic.play();
+        
+
 
         setTimeout(function(){
             //document.getElementById("hand").className = "hand";
@@ -185,26 +167,51 @@ window.onload = function() {
             document.getElementById("loading").className = "loading";
             var con = document.getElementById("con"); 
             var pic = document.getElementById("pic");
-            var arr = ['1','2','3','4','5','6','7','8','9','10']; 
-            var num = Math.floor(Math.random()*10); 
-            con.innerHTML = "摇晃结果<br/>恭喜，摇得"+arr[num]+"！"; 
-            pic.innerHTML =arr[num];
+            
+            //随机数
+            var num = Math.floor(Math.random()*(seqarr.length-1)); 
+
+            con.innerHTML = "摇晃结果<br/>恭喜，摇得"+seqarr[num]+"！"; 
+            pic.innerHTML =seqarr[num];
+
+            
+            
+            //处理缓存
+            var jsonstrseqarr = JSON.stringify(seqarr); 
+            localStorage.setItem("seqarr",jsonstrseqarr);
 
             runingmic.pause();
     
             //播放中奖音效
             endmic.currentTime = 0;
             endmic.play();
-
-            var zjmic=document.getElementById(arr[num]);
-            zjmic.volume=1;
+            //console.log(num);
+            //console.log(seqarr[num]);
+            var zjmic=document.getElementById(seqarr[num]);
+            zjmic.volume=1.0;
             zjmic.currentTime = 0;
             zjmic.play();
             
+            //数组去除指定数字
+            seqarr.splice(num,1);
+
              setTimeout(function(){
                 fog=true;
              },1000)
         }, 1000);
+    }
+
+    function reset(){
+         if(confirm("确定要重新开始吗？"))
+         {
+            var arr = "['1','2','3','4','5','6','7','8','9','10']"; 
+            localStorage.setItem("seqarr",arr);
+         }
+    }
+
+    window.onload=function(){
+        var arr = "['1','2','3','4','5','6','7','8','9','10']"; 
+        localStorage.setItem("seqarr",arr);
     }
     </script>
 </body>
