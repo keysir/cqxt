@@ -472,3 +472,42 @@ Date.prototype.Format = function (fmt) { //author: meizz
     if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
+
+
+var SHAKE_THRESHOLD = 1800;
+var last_update = 0;
+var x = y = z = last_x = last_y = last_z = 0;
+
+if (window.DeviceMotionEvent) {
+    window.addEventListener('devicemotion', deviceMotionHandler, false);
+} else {
+    alert('本设备不支持devicemotion事件');
+}
+var fog=true;
+
+function deviceMotionHandler(eventData) {
+    var acceleration = eventData.accelerationIncludingGravity;
+    var curTime = new Date().getTime();
+
+    if ((curTime - last_update) > 100) {
+        var diffTime = curTime - last_update;
+        last_update = curTime;
+        x = acceleration.x;
+        y = acceleration.y;
+        z = acceleration.z;
+        var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+        var status = document.getElementById("status");
+
+        if (speed > SHAKE_THRESHOLD) {
+            if(fog){
+                dostart();
+            }
+        }
+        last_x = x;
+        last_y = y;
+        last_z = z;
+    }
+}
+function dostart(){
+	
+}

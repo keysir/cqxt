@@ -74,22 +74,10 @@
         opacity: 0.9;
     }
     </style>
-<!-- <script type="text/javascript" src="js/shake.js"></script> -->
+
+<script src="js/howler.core.js"></script>
 </head>
 <body>
-<audio id="runingmic" class="hide" loop><source src=".\music\5018.mp3"></audio>
-<audio id="endmic" class="hide"><source src=".\music\4092.mp3"></audio>
-
-<audio id="1" class="hide"><source src=".\music\1.mp3"></audio>
-<audio id="2" class="hide"><source src=".\music\2.mp3"></audio>
-<audio id="3" class="hide"><source src=".\music\3.mp3"></audio>
-<audio id="4" class="hide"><source src=".\music\4.mp3"></audio>
-<audio id="5" class="hide"><source src=".\music\5.mp3"></audio>
-<audio id="6" class="hide"><source src=".\music\6.mp3"></audio>
-<audio id="7" class="hide"><source src=".\music\7.mp3"></audio>
-<audio id="8" class="hide"><source src=".\music\8.mp3"></audio>
-<audio id="9" class="hide"><source src=".\music\9.mp3"></audio>
-<audio id="10" class="hide"><source src=".\music\10.mp3"></audio>
 
 <img src="images/cz.png" class="cz-btn" onclick="reset()">
 <div id="hand" class="hand hand-animate" onclick="doResult()"></div>
@@ -100,13 +88,99 @@
 </div>
 
  <script>
+    // html5 Set to true to force HTML5 Audio. This should be used for large audio files so that you don't have to wait for the full file to be downloaded and decoded before playing.
+    var runingmic = new Howl({
+      src: ['music/5018.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
 
-    //摇一摇音效
-    var runingmic=document.getElementById("runingmic");
-    runingmic.volume=1;
-    //中奖音效
-    var endmic=document.getElementById("endmic");
-    endmic.volume=1.0;
+    var endmic = new Howl({
+      src: ['music/4092.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
+    var miclitplay={};
+    miclitplay.playlist={};
+
+    miclitplay.playlist.mic1= new Howl({
+      src: ['music/1.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
+    miclitplay.playlist.mic2= new Howl({
+      src: ['music/2.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
+    miclitplay.playlist.mic3= new Howl({
+      src: ['music/3.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
+    miclitplay.playlist.mic4= new Howl({
+      src: ['music/4.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
+    miclitplay.playlist.mic5= new Howl({
+      src: ['music/5.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
+    miclitplay.playlist.mic6= new Howl({
+      src: ['music/6.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
+    miclitplay.playlist.mic7= new Howl({
+      src: ['music/7.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
+    miclitplay.playlist.mic8= new Howl({
+      src: ['music/8.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
+    miclitplay.playlist.mic9= new Howl({
+      src: ['music/9.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
+    miclitplay.playlist.mic10= new Howl({
+      src: ['music/10.mp3'],
+      autoplay: false,
+      loop: false,
+      html5: true, 
+      volume: 1
+    });
+    
+    miclitplay.play =function(i){
+        miclitplay.playlist[i].play();
+    }
 
     var SHAKE_THRESHOLD = 1800;
     var last_update = 0;
@@ -156,7 +230,7 @@
         document.getElementById("result").className = "result";
         document.getElementById("loading").className = "loading loading-show";
 
-        runingmic.currentTime = 0;
+        //runingmic.currentTime = 0;
         runingmic.play();
         
 
@@ -174,21 +248,9 @@
             con.innerHTML = "摇晃结果<br/>恭喜，摇得"+seqarr[num]+"！"; 
             pic.innerHTML =seqarr[num];
 
-            
-            
-           
-
-            runingmic.pause();
-    
-            //播放中奖音效
-            endmic.currentTime = 0;
             endmic.play();
-            //console.log(num);
-            //console.log(seqarr[num]);
-            var zjmic=document.getElementById(seqarr[num]);
-            zjmic.volume=1.0;
-            zjmic.currentTime = 0;
-            zjmic.play();
+
+            miclitplay.play("mic"+seqarr[num]);
             
             //数组去除指定数字
             seqarr.splice(num,1);
